@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block bodydown %}
+
+<h1>PRODUCTS</h1>
+
+<div class="container-fluid">
+    <table class="table table-hover table-dark">
+        <thead>
+        <tr>
+            <th scope="col">#id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Barcode</th>
+            <th scope="col">price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+        <tr>
+            <th scope="row">{{item.id}}</th>
+            <td>{{item.name}}</td>
+            <td>{{item.barcode}}</td>
+            <td>${{item.price}}</td>
+            <td>
+                <button class="btn btn-outline btn-primary">More Info</button>
+                <button class="btn btn-outline btn-success">Purchase</button>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block style %}
+    h1{
+        text-align: center
+    }
+{% endblock %}
