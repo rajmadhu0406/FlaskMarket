@@ -47,16 +47,31 @@
 <!--        <div id="nav-search" class="">-->
             <form class="form-inline justify-content-left">
                 <div id="login-div" class="col-4 col-md-4 offset-md-2">
-                    <a class="btn btn-success " href="#" role="button">Login</a>
+                    <a class="btn btn-success " href="{{ url_for('login_page') }}" role="button">Login</a>
                 </div>
                 <div id="register-div" class="col-3 offset-md-0">
-                    <a class="btn btn-info " href="#" role="button">Register</a>
+                    <a class="btn btn-info " href="{{ url_for('register_page') }}" role="button">Register</a>
                 </div>
             </form>
 <!--        </div>-->
     </div>
 </nav>
 <br>
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category,message in messages %}
+            <div class="alert alert-{{ category }}" role="alert">
+                <button type="button" class="m1-2 mb-1 close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+                <br>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 {% block bodydown %}
 
 {% endblock %}
@@ -74,9 +89,14 @@
     body{
        background-color: #202020;
        color: white;
+       text-align:center
     }
     ul>li>a:hover{
         color: orange !important;
+    }
+    h1{
+        text-align: center;
+<!--        margin-right: 4%;-->
     }
     {% block style %}
 

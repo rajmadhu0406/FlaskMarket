@@ -1,7 +1,55 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Registration Page
+Registration Page
+{% endblock %}
+
+{% block bodydown %}
+
+<div class="container">
+
+    <form method="POST" class="form-register" style="color:white">
+
+        {{ form.hidden_tag() }}
+
+        <img class="mb-4"
+             id="logo"
+             src="https://source.unsplash.com/YuzeTOZQIdA/150x150/"
+             alt="">
+        <h1 class="h3 mb-3 font-weight-normal" style="color: yellow">
+            Please Create your Account
+        </h1>
+        <br>
+        {{ form.username.label() }}
+        {{ form.username(class="form-control", placeholder="Enter Username") }}
+        {{ form.email_address.label() }}
+        {{ form.email_address(class="form-control", placeholder="Enter E-mail") }}
+        {{ form.password1.label() }}
+        {{ form.password1(class="form-control", placeholder="Enter password") }}
+        {{ form.password2.label() }}
+        {{ form.password2(class="form-control", placeholder="Confirm password") }}
+        <br>
+        {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+        <br>
+        <div>
+            <h5>Already have an account?</h5>
+            <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Login!</a>
+        </div>
+
+    </form>
+</div>
+
+
+{% endblock %}
+
+{% block style %}
+#logo{
+border-radius: 100%;
+}
+.container{
+text-align: center;
+}
+
 {% endblock %}
 
 

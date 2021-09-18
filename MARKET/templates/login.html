@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+LOGIN PAGE
+{% endblock %}
+
+
+{% block bodydown %}
+<body class="text-center">
+<div class="container">
+    <form method="POST" class="form-signin" style="color:white">
+
+        {{ form.hidden_tag() }}
+        <h1 class="h3 mb-3 font-weight-normal" style="color: yellow">
+            Login to your Account
+        </h1>
+        <img class="mb-4"
+             id="logo"
+             src="https://source.unsplash.com/YuzeTOZQIdA/150x150/"
+             alt="">
+
+        <br>
+        {{ form.username.label() }}
+        {{ form.username(class="form-control", placeholder="Enter Username") }}
+
+        {{ form.password.label() }}
+        {{ form.password(class="form-control", placeholder="Enter password") }}
+
+        <br>
+
+        {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+
+        <br>
+
+        <div>
+            <h5>Don't have an account?</h5>
+            <a class="btn btn-sm btn-secondary" href="{{ url_for('register_page') }}">Register</a>
+        </div>
+
+
+    </form>
+</div>
+</body>
+
+
+{% endblock %}
+
+{% block style %}
+#logo{
+border-radius: 100%;
+}
+.container{
+text-align: center;
+}
+
+{% endblock %}
