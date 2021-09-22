@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <title>
         {% block title %}
@@ -19,63 +20,79 @@
 {% block bodyup %}
 
 {% endblock %}
-<nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
-<!--    <div class="navbar-header">-->
-        <a class="navbar-brand" href="{{ url_for('home_page') }}">Flask Market</a>
-     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="{{ url_for('home_page') }}" style="color:gold">Flask Market</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
-    </button>
-<!--    </div>-->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div  class="container justify-content-center col-md-6 offset-md-2.5">
-            <ul id="nav-ul" class="navbar-nav">
-                <li class="nav-item active ">
-                    <a class="nav-link" href="{{ url_for('home_page') }}">Home <span class="sr-only">(current)</span></a>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+
+
+          <div class="container ">
+              <ul class="navbar-nav ">
+                  <li class="nav-item text-center" style="margin-left: 165%;">
+                      <a class="nav-link" href="{{ url_for('home_page') }}">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item  text-center">
+                      <a class="nav-link" href="{{ url_for('market_page') }}">Market</a>
+                  </li>
+                  <li class="nav-item  text-center">
+                      <a class="nav-link" href="#">About</a>
+                  </li>
+                  <li class="nav-item  text-center">
+                      <a class="nav-link" href="#">Contact</a>
+                  </li>
+              </ul>
+          </div>
+
+
+
+          {% if current_user.is_authenticated %}
+            <ul class="navbar-nav px-md-0">
+                <li class="nav-item ">
+                    <a class="nav-link" style="color: lawngreen; font-weight: bold">
+                        <i class="bi bi-wallet2"></i>
+                        ${{ current_user.prettier_budget }}
+                    </a>
                 </li>
-                <li class="nav-item active ">
-                    <a class="nav-link" href="#">About <span class="sr-only">(current)</span></a>
+                <li class="nav-item pr-2">
+                    <a class="nav-link">Welcome, {{ current_user.username }}</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Contact us <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('market_page') }}">Products<span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="btn btn-danger" href="{{ url_for('logout_page') }}">Logout</a>
                 </li>
             </ul>
-        </div>
-<!--        <div id="nav-search" class="">-->
-            <form class="form-inline justify-content-left">
-                <div id="login-div" class="col-4 col-md-4 offset-md-2">
-                    <a class="btn btn-success " href="{{ url_for('login_page') }}" role="button">Login</a>
-                </div>
-                <div id="register-div" class="col-3 offset-md-0">
-                    <a class="btn btn-info " href="{{ url_for('register_page') }}" role="button">Register</a>
-                </div>
-            </form>
-<!--        </div>-->
-    </div>
-</nav>
+          {% else %}
+            <ul class="navbar-nav">
+                <li class="nav-item pr-2">
+                    <a class="btn btn-success" href="{{ url_for('login_page') }}">Login</a>
+                </li>
+                <li class="nav-item pr-1">
+                    <a class="btn btn-info" href="{{ url_for('register_page') }}">Register</a>
+                </li>
+            </ul>
+          {% endif %}
+      </div>
+    </nav>
 <br>
 
 {% with messages = get_flashed_messages(with_categories=True) %}
-    {% if messages %}
-        {% for category,message in messages %}
-            <div class="alert alert-{{ category }}" role="alert">
-                <button type="button" class="m1-2 mb-1 close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                {{ message }}
-                <br>
-            </div>
-        {% endfor %}
-    {% endif %}
+{% if messages %}
+{% for category,message in messages %}
+<div class="alert alert-{{ category }}" role="alert">
+    <button type="button" class="m1-2 mb-1 close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+    <br>
+</div>
+{% endfor %}
+{% endif %}
 {% endwith %}
 
 {% block bodydown %}
 
 {% endblock %}
-
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -90,6 +107,7 @@
        background-color: #202020;
        color: white;
        text-align:center
+
     }
     ul>li>a:hover{
         color: orange !important;
@@ -98,8 +116,10 @@
         text-align: center;
 <!--        margin-right: 4%;-->
     }
+
     {% block style %}
 
     {% endblock %}
+
 </style>
 </html>

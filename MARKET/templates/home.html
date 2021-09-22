@@ -1,6 +1,27 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Home Page
+Home Page
 {% endblock %}
 
+{% block bodydown %}
+
+
+<div class="position-relative overflow-hidden p-2 p-md-5 m-md-3  text-center fb-dark">
+    <div class="card col-md-6 p-lg-2 mx-auto my-2" style="width: 58rem; background:grey;">
+        <img src="https://source.unsplash.com/D6Tu_L3chLE/1600x900" class="card-img-top" alt="">
+        <div class="card-body">
+            <h2>
+                Welcome to Flask Market!!!
+            </h2>
+            <p class="card-text">
+                Get everything you need at one place.
+            </p>
+
+            <a class="btn btn-primary" href="{{ url_for('market_page') }}" >See Products</a>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
