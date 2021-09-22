@@ -26,11 +26,13 @@ def market_page():
     #     {'id': 3, 'name': 'Keyboard', 'barcode': '231985128446', 'price': 150}
     # ]
     purchase_form = PurchaseItemForm()
+    sell_form = SellItemForm()
     # if purchase_form.validate_on_submit():
     #     name = request.form.get('purchased_item')
     #     print(name)
 
     if request.method == "POST":
+        #Purchase Logic
         purchased_item = request.form.get('purchased_item')
         product_obj = product.query.filter_by(name=purchased_item).first()
         if product_obj: #check if it is null or not
@@ -40,11 +42,22 @@ def market_page():
             else:
                 flash("You are short of funds :(", category="danger")
 
+        #Sell Logic
+
+        sold_item = request.form.get('sold_item')
+        product_sell_obj = product.query.filter_by(name=sold_item).first()
+        if product_sell_obj:
+            product_sell_obj.sell(current_user)
+            flash(f"You sold {product_sell_obj.name} for ${product_sell_obj.price}", category="success")
+
+
+
         return redirect(url_for('market_page'))
 
     if request.method == "GET":
-        items = product.query.filter(product.owner != current_user.id)  # SQLAlchemy
-        return render_template('market.html', items=items, purchase_form=purchase_form)
+        items = product.query.filter_by(owner=None)  # SQLAlchemy
+        owned_items = product.query.filter_by(owner=current_user.id)
+        return render_template('market.html', items=items, sell_form=sell_form, purchase_form=purchase_form, owned_items=owned_items)
 
 
 
