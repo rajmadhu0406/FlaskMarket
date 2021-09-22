@@ -1,0 +1,43 @@
+
+<!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">-->
+<!--  Launch static backdrop modal-->
+<!--</button>-->
+
+<!-- Modal -->
+<div class="modal fade" id="money_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body" style="color: white">
+        <form method="POST">
+         {{ add_money.hidden_tag() }}
+
+          <div class="input-group mx-auto" style="width: 60%">
+            <input id="added_money" name="added_money" type="number" class="form-control text-center" min="100" max="100000">
+            <div class="input-group-append">
+              <span class="input-group-text">$</span>
+            </div>
+          </div>
+          <br>
+          {{ add_money.submit(class="btn btn-outline-success btn-block") }}
+        </form>
+
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<!--        <button type="button" class="btn btn-primary">Add</button>-->
+
+      </div>
+    </div>
+  </div>
+</div>

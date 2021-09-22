@@ -48,13 +48,20 @@
 
 
           {% if current_user.is_authenticated %}
+
+
             <ul class="navbar-nav px-md-0">
-                <li class="nav-item ">
-                    <a class="nav-link" style="color: lawngreen; font-weight: bold">
-                        <i class="bi bi-wallet2"></i>
-                        ${{ current_user.prettier_budget }}
-                    </a>
-                </li>
+                {% if request.path == "/market" %}
+                    {% include 'includes/add_cash_modal.html' %}
+                    <li class="nav-item ">
+                        <a class="nav-link" style="color: lawngreen; font-weight: bold margin-bottom: 5px" type="button"
+                           data-toggle="modal" data-target="#money_modal">
+                            <i class="bi bi-wallet2"></i>
+                            ${{ current_user.prettier_budget }}
+                        </a>
+                    </li>
+                {% endif %}
+
                 <li class="nav-item pr-2">
                     <a class="nav-link">Welcome, {{ current_user.username }}</a>
                 </li>

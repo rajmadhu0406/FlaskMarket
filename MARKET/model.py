@@ -38,6 +38,11 @@ class User(db.Model, UserMixin):
     def can_purchase(self, p_obj):
         return self.budget >= p_obj.price
 
+    def add(self, money):
+        if money != None:
+            self.budget += int(money)
+            db.session.commit()
+
 
 
 class product(db.Model):

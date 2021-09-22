@@ -1,7 +1,7 @@
 from MARKET import app
 from flask import render_template, redirect, url_for, flash, request
 from MARKET.model import product, User
-from MARKET.form import RegisterForm, LoginForm, SellItemForm, PurchaseItemForm
+from MARKET.form import RegisterForm, LoginForm, SellItemForm, PurchaseItemForm, AddMoney
 from MARKET import db
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -27,6 +27,7 @@ def market_page():
     # ]
     purchase_form = PurchaseItemForm()
     sell_form = SellItemForm()
+    add_money = AddMoney()
     # if purchase_form.validate_on_submit():
     #     name = request.form.get('purchased_item')
     #     print(name)
@@ -50,6 +51,16 @@ def market_page():
             product_sell_obj.sell(current_user)
             flash(f"You sold {product_sell_obj.name} for ${product_sell_obj.price}", category="success")
 
+        #Add logic
+
+        money_to_add = request.form.get('added_money')
+        if money_to_add == None:
+            pass
+        elif money_to_add != 0:
+            current_user.add(money_to_add)
+            flash(f"${money_to_add} has been added to your wallet", category="success")
+        else:
+            flash("Error! There was an error while transfering the money to your account.", category="danger")
 
 
         return redirect(url_for('market_page'))
@@ -57,7 +68,7 @@ def market_page():
     if request.method == "GET":
         items = product.query.filter_by(owner=None)  # SQLAlchemy
         owned_items = product.query.filter_by(owner=current_user.id)
-        return render_template('market.html', items=items, sell_form=sell_form, purchase_form=purchase_form, owned_items=owned_items)
+        return render_template('market.html', items=items, sell_form=sell_form, purchase_form=purchase_form, owned_items=owned_items, add_money=add_money)
 
 
 
